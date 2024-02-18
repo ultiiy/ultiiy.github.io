@@ -108,7 +108,7 @@ body {
 /* - Área de trabalho -------------------- */
 
 #area-trabalho {
-    background-image: url(images/background.png);
+    background-image: url(./images/Wallpapers/background.png);
     background-position: center;
     background-size: cover;
     position: fixed;
