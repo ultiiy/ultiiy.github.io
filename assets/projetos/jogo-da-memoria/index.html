@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo da memória</title>
+</head>
+
+<style>
+    /* Estilos de reset e estilos globais */
+    * {
+        margin: 0;
+        padding: 0;
+        outline: none;
+        box-sizing: border-box;
+        font-family: 'Roboto', sans-serif;
+    }
+
+    /* Estilos do corpo (body) */
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        background-color: whitesmoke;
+        user-select: none;
+    }
+
+    /* Estilos do contêiner (container) */
+    .container {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 30px;
+        background-color: rgb(173, 182, 192);
+        padding: 40px 60px;
+    }
+
+    /* Estilos do formulário (form) */
+    #emojiForm {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+
+    /* Estilos de input */
+    input[type="radio"] {
+        display: none;
+    }
+
+    input[type="radio"]:checked+label {
+        background-color: #FFF;
+        border-radius: 45px;
+        padding: 0.4em 0.8em;
+    }
+
+    /* Estilos do cabeçalho (heading) */
+    h2 {
+        font-size: 3em;
+        color: #FFF;
+        text-transform: uppercase;
+    }
+
+    /* Estilos do botão (button) */
+    button {
+        padding: 15px 20px;
+        width: 100%;
+        color: #000;
+        border: none;
+        font-size: 1.5em;
+        letter-spacing: 0.1em;
+        cursor: pointer;
+        font-weight: 600;
+    }
+
+    .reset:focus,
+    .reset:hover {
+        color: white;
+        background-color: slategray;
+    }
+
+    /* Estilos do contêiner do jogo (game) */
+    .game {
+        width: 480px;
+        height: 480px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        transform-style: preserve-3d;
+        perspective: 500px;
+    }
+
+    /* Estilos do item (itens) */
+    .itens {
+        position: relative;
+        width: 100px;
+        height: 100px;
+        font-size: 3em;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #FFF;
+        transform: rotateY(180deg);
+        transition: 0.25s;
+    }
+
+    .itens::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-color: #404040;
+        transform: rotateY(0deg);
+        transition: 0.25s;
+        backface-visibility: hidden;
+    }
+
+    .itens.open {
+        transform: rotateY(0deg);
+    }
+
+    .open::after,
+    .match::after {
+        transform: rotateY(180deg);
+    }
+</style>
+
+<body>
+    <div class="container">
+        <h2>Jogo da memória</h2>
+        <div>
+            <p>Escolha um tema:</p>
+            <div id="emojiForm">
+                <input type="radio" name="emojis" id="numeros" value="5️⃣">
+                <label for="numeros">5️⃣ Numeros</label>
+
+                <input type="radio" name="emojis" id="caretas" value="😀">
+                <label for="caretas">😀 Caretas</label>
+
+                <input type="radio" name="emojis" id="animais" value="🐶" checked>
+                <label for="animais">🐶 Animais</label>
+
+                <input type="radio" name="emojis" id="comida" value="🍕">
+                <label for="comida">🍕 Comidas</label>
+
+                <input type="radio" name="emojis" id="cores" value="🔴">
+                <label for="cores">🔴 Cores</label>
+            </div>
+        </div>
+        <div class="game"></div>
+        <button class="reset" onclick="window.location.reload()">REINICIAR</button>
+    </div>
+    <script defer>
+        document.addEventListener('DOMContentLoaded', function () {
+            loadEmojis('🐶');
+        });
+
+        const emojisMapping = {
+            '5️⃣': ['1️⃣', '1️⃣', '2️⃣', '2️⃣', '3️⃣', '3️⃣', '4️⃣', '4️⃣', '5️⃣', '5️⃣', '6️⃣', '6️⃣', '7️⃣', '7️⃣', '8️⃣', '8️⃣'],
+            '😀': ['😍', '😍', '😁', '😁', '😇', '😇', '🤣', '🤣', '🤯', '🤯', '🤪', '🤪', '🥶', '🥶', '🥳', '🥳'],
+            '🐶': ['🐶', '🐶', '🐱', '🐱', '🦊', '🦊', '🦁', '🦁', '🦄', '🦄', '🐉', '🐉', '🦆', '🦆', '🦚', '🦚'],
+            '🍕': ['🍔', '🍔', '🍕', '🍕', '🍟', '🍟', '🌭', '🌭', '🍿', '🍿', '🥪', '🥪', '🍖', '🍖', '🍫', '🍫'],
+            '🔴': ['🔴', '🔴', '🔵', '🔵', '🟢', '🟢', '🟡', '🟡', '🟣', '🟣', '🟠', '🟠', '🟤', '🟤', '⚫', '⚫']
+        };
+
+        let openCards = [];
+        const gameContainer = document.querySelector('.game');
+        const emojiForm = document.getElementById('emojiForm');
+
+        emojiForm.addEventListener('change', function (event) {
+            clearGameContainer();
+            const selectedEmoji = document.querySelector('input[name="emojis"]:checked').value;
+            loadEmojis(selectedEmoji);
+        });
+
+        function clearGameContainer() {
+            gameContainer.innerHTML = '';
+        }
+
+        function loadEmojis(emoji) {
+            const emojis = emojisMapping[emoji];
+            const randomEmojis = emojis.sort(() => Math.random() - 0.5);
+
+            randomEmojis.forEach(emoji => {
+                const box = document.createElement('div');
+                box.className = 'itens';
+                box.innerHTML = emoji;
+                box.addEventListener('click', emojiClick);
+                gameContainer.appendChild(box);
+            });
+        }
+
+        function emojiClick() {
+            if (openCards.length < 2) {
+                this.classList.add('open');
+                openCards.push(this);
+
+                if (openCards.length === 2) {
+                    setTimeout(checkMatch, 500);
+                }
+            }
+
+            function checkMatch() {
+                const [firstCard, secondCard] = openCards;
+
+                if (firstCard.innerHTML === secondCard.innerHTML) {
+                    firstCard.classList.add('match');
+                    secondCard.classList.add('match');
+                } else {
+                    firstCard.classList.remove('open');
+                    secondCard.classList.remove('open');
+                }
+
+                openCards = [];
+
+                const totalCards = document.querySelectorAll('.itens');
+                const matchedCards = document.querySelectorAll('.match');
+
+                if (totalCards.length === matchedCards.length) {
+                    alert('Parabéns, você ganhou!');
+                    window.location.reload();
+                }
+            }
+        }
+
+    </script>
+</body>
+
+</html>

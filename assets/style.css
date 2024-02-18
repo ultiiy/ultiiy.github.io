@@ -1,0 +1,208 @@
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    cursor: default;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+}
+
+/* - Barra de tarefas -------------------- */
+
+#barra-tarefas {
+    background-color: #131313;
+    color: #dadada;
+
+    position: fixed;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    height: 2em;
+    width: 100vw;
+    z-index: 2;
+}
+
+#barra-tarefas .title {
+    display: flex;
+    gap: 0.75em;
+    margin-left: 1.2em;
+}
+
+#barra-tarefas .configs {
+    display: flex;
+    gap: 2.4em;
+    margin-right: 1.2em;
+}
+
+#barra-tarefas .configs .icons {
+    display: flex;
+    gap: 0.8em;
+}
+
+/* - Lancador de aplicativos -------------------- */
+
+#lançador-aplicativos {
+    background-color: rgba(0, 0, 0, 0.4);
+
+    position: fixed;
+    width: 5em;
+    top: 2em;
+    height: calc(100vh - 2em);
+    z-index: 1;
+}
+
+#lançador-aplicativos .barra-lateral {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+}
+
+#lançador-aplicativos .barra-lateral ul {
+    display: flex;
+    flex-direction: column;
+    gap: 1.4em;
+    list-style: none;
+    margin-top: 0.4em;
+}
+
+.barra-lateral li {
+    width: 68px;
+    height: 68px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#lançador-aplicativos .barra-lateral img {
+    width: 48px;
+    height: 48px;
+}
+
+.barra-lateral-menu {
+    margin-bottom: 0.4em;
+    width: 64px !important; 
+    height: 64px !important; 
+}
+
+
+.barra-lateral img:active,
+.lancador-telaCheia img:active {
+    transform: scale(0.96);
+}
+
+.efeito-hover:hover {
+    border-radius: 0.4em;
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* - Área de trabalho -------------------- */
+
+#area-trabalho {
+    background-image: url(images/background.png);
+    background-position: center;
+    background-size: cover;
+    position: fixed;
+    top: 2em;
+    height: calc(100vh - 2em);
+    width: 100vw;
+}
+
+/* - Lançador de aplicativos tela cheia -------------------- */
+
+.lancador-telaCheia {
+    display: none;
+
+    background-color: #222222;
+    text-align: center;
+    position: inherit;
+    top: 2em;
+    left: 5em;
+    width: calc(100vw - 5em);
+    height: calc(100vh - 2em);
+}
+
+.lancador-telaCheia .icon-app {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 4em;
+    padding: 4em 8em;
+    height: calc(100vh - 14em);
+}
+
+.lancador-telaCheia img {
+    width: 6em;
+}
+
+.lancador-telaCheia input {
+    margin-top: 1.6em;
+    padding: 1em;
+    width: 400px;
+    border: none;
+    border-radius: 16px;
+}
+
+.lancador-telaCheia figcaption {
+    color: #eeefee;
+    margin-top: 0.5em;
+}
+
+/* - Docker -------------------- */
+
+#docker {
+    position: relative;
+    left: 5em;
+    height: calc(100vh - 2em);
+    width: calc(100vw - 2em);
+}
+
+#docker .app {
+    height: calc(50% + 2em);
+    width: 50%;
+}
+
+#docker .app .menu-janela {
+    background-color: #1f1f1f;
+    color: #eeefee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1em 0 1em;
+    height: 2em;
+}
+
+#docker .app .menu-janela span {
+    display: flex;
+    align-items: center;
+    gap: 0.8em;
+}
+
+#docker .app .menu-janela span img {
+    width: 1.2em;
+}
+
+#docker .app .menu-janela i {
+    transform: rotate(180deg);
+    margin: 0.4em;
+}
+
+#docker .app i:hover {
+    color: #808080
+}
+
+#docker .app .janela {
+    background-color: whitesmoke;
+    height: 100%;
+
+}
