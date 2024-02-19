@@ -29,10 +29,11 @@
     <nav id="lançador-aplicativos" class="lançador-aplicativos">
         <div class="barra-lateral">
             <ul>
-                <li class="efeito-hover"><img src="./assets/icons/area de trabalho/user-trash.png" alt=""></li>
+                <li><img onclick="openAPP('app1')" src="assets/images/Villager Life.png" alt=""></li>
+                <li><img src="./assets/icons/user-trash.png" alt=""></li>
             </ul>
             <img class="efeito-hover barra-lateral-menu" onclick="menu_telaCheia()"
-                src="./assets/icons/area de trabalho/desktop-apps-symbolic.svg" alt="menu">
+                src="./assets/icons/desktop-apps-symbolic.svg" alt="menu">
         </div>
     </nav>
 
@@ -48,14 +49,23 @@
                     <img onclick="openApp('app2')" src="./assets/images/Jogo da memoria.png" alt="Jogo da memoria">
                     <figcaption>Jogo da Memoria</figcaption>
                 </figure>
+                <figure>
+                    <img onclick="openApp('app3')" src="./assets/icons/terminal-app.png" alt="Terminal">
+                    <figcaption>Terminal</figcaption>
+                </figure>
+                <figure>
+                    <img onclick="openApp('app4')" src="./assets/icons/Microsoft_Edge.png" alt="Edge">
+                    <figcaption>Microsoft Edge</figcaption>
+                </figure>
             </div>
         </div>
         <div id="docker" class="docker">
-            <!-- <div class="app">
+
+            <div class="app" draggable="true">
                 <div class="menu-janela">
                     <span class="info">
-                        <img src="assets/images/Villager Life.png" alt="">
-                        <p>Villager Life</p>
+                        <img id="logoAPP" src="" alt="">
+                        <p id="nomeAPP"></p>
                     </span>
                     <span class="icons-menuJanela">
                         <i onclick="minimizarAPP()" class="bi bi-dash"></i>
@@ -63,8 +73,11 @@
                         <i onclick="fecharAPP()" class="bi bi-x-lg"></i>
                     </span>
                 </div>
-                <div class="janela"></div>
-            </div>-->
+                <div class="janela">
+                    
+                </div>
+            </div>
+
         </div>
 
     </main>

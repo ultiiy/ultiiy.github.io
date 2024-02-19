@@ -4,7 +4,6 @@
 * {
     margin: 0;
     padding: 0;
-    cursor: default;
     font-family: 'Ubuntu', sans-serif;
 }
 
@@ -70,7 +69,7 @@ body {
 #lançador-aplicativos .barra-lateral ul {
     display: flex;
     flex-direction: column;
-    gap: 1.4em;
+    gap: 0.2em;
     list-style: none;
     margin-top: 0.4em;
 }
@@ -100,7 +99,7 @@ body {
     transform: scale(0.96);
 }
 
-.efeito-hover:hover {
+.efeito-hover:hover, .barra-lateral li:hover {
     border-radius: 0.4em;
     background-color: rgba(255, 255, 255, 0.2);
 }
@@ -142,7 +141,7 @@ body {
 }
 
 .lancador-telaCheia img {
-    width: 6em;
+    width: 5em;
 }
 
 .lancador-telaCheia input {
@@ -162,14 +161,21 @@ body {
 
 #docker {
     position: relative;
+ 
     left: 5em;
     height: calc(100vh - 2em);
-    width: calc(100vw - 2em);
+    width: calc(100vw - 5em);
 }
 
 #docker .app {
+    position: absolute;
     height: calc(50% + 2em);
+    width: calc(50% + 5em);
     width: 50%;
+}
+
+.app.dragging {
+    cursor: grabbing;
 }
 
 #docker .app .menu-janela {
@@ -203,6 +209,26 @@ body {
 
 #docker .app .janela {
     background-color: whitesmoke;
-    height: 100%;
+    height: calc(100% - 2em);
 
 }
+
+#browser {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  #search-input {
+    padding: 0.5em;
+    margin-bottom: 0.5em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 80%;
+  }
+  
+  #web-view {
+    flex-grow: 1;
+    border: none;
+  }
