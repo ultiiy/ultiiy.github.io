@@ -169,8 +169,7 @@ body {
 
 #docker .app {
     position: absolute;
-    height: calc(50% + 2em);
-    width: calc(50% + 5em);
+    height: 60%;
     width: 50%;
 }
 
@@ -186,6 +185,7 @@ body {
     align-items: center;
     padding: 0 1em 0 1em;
     height: 2em;
+    
 }
 
 #docker .app .menu-janela span {

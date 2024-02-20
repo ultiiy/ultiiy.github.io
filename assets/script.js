@@ -49,8 +49,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function startDragging(e) {
         isDragging = true;
-        offsetX = e.clientX - currentApp.getBoundingClientRect().left;
-        offsetY = e.clientY - currentApp.getBoundingClientRect().top;
+        const dockerRect = docker.getBoundingClientRect();
+        const appRect = currentApp.getBoundingClientRect();
+        offsetX = e.clientX - appRect.left + dockerRect.left;
+        offsetY = e.clientY - appRect.top + dockerRect.top;
         currentApp.classList.add('dragging');
     }
 
@@ -73,7 +75,8 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     document.querySelectorAll('.app').forEach(function (app) {
-        app.addEventListener('mousedown', function (e) {
+        const menuJanela = app.querySelector('.menu-janela');
+        menuJanela.addEventListener('mousedown', function (e) {
             currentApp = app;
             startDragging(e);
             document.addEventListener('mousemove', dragApp);
@@ -118,26 +121,26 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    function maximizarAPP() {
-        const app = document.querySelector('.app');
-        toggleFullScreen(app);
-    }
-
-    document.querySelector('#maximizeButton').addEventListener('click', function () {
-        maximizarAPP();
-    });
-
     document.querySelectorAll('.app').forEach(function (app) {
+        const menuJanela = app.querySelector('.menu-janela');
+        menuJanela.addEventListener('dblclick', function (e) {
+            toggleFullScreen(app);
+        });
+
         app.addEventListener('mousedown', function (e) {
             e.preventDefault(); // Evita a seleção de texto ao clicar e arrastar
         });
+    });
 
-        app.addEventListener('dblclick', function (e) {
-            toggleFullScreen(app);
-        });
+    const maximizeButton = document.getElementById('maximizarAPP');
+    maximizeButton.addEventListener('click', function () {
+        const app = document.querySelector('.app');
+        toggleFullScreen(app);
     });
 });
+
 
 /* -   -------------------- */
 
 
+db
