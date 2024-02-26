@@ -8,12 +8,12 @@
 }
 
 body {
+    user-select: none;
     width: 100vw;
     height: 100vh;
 }
 
 /* - Barra de tarefas -------------------- */
-
 #barra-tarefas {
     background-color: #131313;
     color: #dadada;
@@ -47,7 +47,6 @@ body {
 }
 
 /* - Lancador de aplicativos -------------------- */
-
 #lançador-aplicativos {
     background-color: rgba(0, 0, 0, 0.4);
 
@@ -66,12 +65,19 @@ body {
     height: 100%;
 }
 
-#lançador-aplicativos .barra-lateral ul {
+.barra-lateral ul {
     display: flex;
     flex-direction: column;
     gap: 0.2em;
     list-style: none;
     margin-top: 0.4em;
+}
+
+.barra-lateral hr {
+    width: 80%;
+    margin: auto;
+    border: 0;
+    border-top: 1px solid #464646;
 }
 
 .barra-lateral li {
@@ -82,30 +88,34 @@ body {
     align-items: center;
 }
 
-#lançador-aplicativos .barra-lateral img {
+.barra-lateral img {
     width: 48px;
     height: 48px;
 }
 
 .barra-lateral-menu {
     margin-bottom: 0.4em;
-    width: 64px !important; 
-    height: 64px !important; 
+    width: 64px !important;
+    height: 64px !important;
 }
-
 
 .barra-lateral img:active,
 .lancador-telaCheia img:active {
-    transform: scale(0.96);
+    transform: scale(0.99);
 }
 
-.efeito-hover:hover, .barra-lateral li:hover {
+.efeito-hover:hover,
+.barra-lateral li:hover {
     border-radius: 0.4em;
+    background-color: rgba(255, 255, 255, 0.24);
+}
+
+.efeito-hover:active,
+.barra-lateral li:active, .ativo {
     background-color: rgba(255, 255, 255, 0.2);
 }
 
 /* - Área de trabalho -------------------- */
-
 #area-trabalho {
     background-image: url(./images/Wallpapers/background.png);
     background-position: center;
@@ -117,7 +127,6 @@ body {
 }
 
 /* - Lançador de aplicativos tela cheia -------------------- */
-
 .lancador-telaCheia {
     display: none;
 
@@ -158,10 +167,9 @@ body {
 }
 
 /* - Docker -------------------- */
-
 #docker {
     position: relative;
- 
+
     left: 5em;
     height: calc(100vh - 2em);
     width: calc(100vw - 5em);
@@ -169,15 +177,12 @@ body {
 
 #docker .app {
     position: absolute;
+
     height: 60%;
     width: 50%;
 }
 
-.app.dragging {
-    cursor: grabbing;
-}
-
-#docker .app .menu-janela {
+.app .menu-janela {
     background-color: #1f1f1f;
     color: #eeefee;
     display: flex;
@@ -185,30 +190,35 @@ body {
     align-items: center;
     padding: 0 1em 0 1em;
     height: 2em;
-    
 }
 
-#docker .app .menu-janela span {
+.app .menu-janela span {
     display: flex;
     align-items: center;
     gap: 0.8em;
 }
 
-#docker .app .menu-janela span img {
+.app .menu-janela span img {
     width: 1.2em;
 }
 
-#docker .app .menu-janela i {
+.app .menu-janela i {
     transform: rotate(180deg);
     margin: 0.4em;
 }
 
-#docker .app i:hover {
+.app .menu-janela i:hover {
     color: #808080
 }
 
-#docker .app .janela {
-    background-color: whitesmoke;
+.app .janela {
+    background-color: #272727;
+    width: 100%;
     height: calc(100% - 2em);
+}
 
+.app .janela iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
 }
